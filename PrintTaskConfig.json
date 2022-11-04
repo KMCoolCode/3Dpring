@@ -1,0 +1,17 @@
+{
+  "projectorNum": 1,
+  "projectorConfigs": [
+    {
+      "PrinterPixWidth": 3840,
+      "PrinterPixHeight": 2160,
+      "PrintPixScale": 10.154575,
+      "HoleOffsetX": 3.8,
+      "HoleOffsetY": -0.7,
+      "HoleRadius": 2.85,
+      "HoleCompNum": 0,
+      "HrojectorOffsetX": 0.0,
+      "HrojectorOffsetY": 0.0
+    }
+  ],
+  "layerThicness": 0.12
+}

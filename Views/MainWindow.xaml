@@ -1,0 +1,662 @@
+﻿<Window
+    x:Class="AngelDLP.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:Models ="clr-namespace:AngleDLP.Models"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local1="clr-namespace:AngelDLP.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewmodels="clr-namespace:AngelDLP.ViewModels"
+    xmlns:p ="clr-namespace:DataService.Models.Dto.Pcloud;assembly=DataService"
+    xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+    Title="AngleAlign Tecnology DLP Printer"
+    Width="1440"
+    Height="880"
+    MinWidth="1000" MinHeight="700"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+    Background="Blue"
+    Loaded="WindowLoaded"
+    SizeChanged="Window_SizeChanged"
+    ResizeMode="CanResizeWithGrip"
+    
+    Closing="Window_FormClosing"
+    Initialized="Window_Initialized"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource PoptipBaseStyle}" TargetType="{x:Type hc:Poptip}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+            <ObjectDataProvider x:Key="PrinterProduceModeEnum" MethodName="GetValues" ObjectType="{x:Type p:PrinterProduceMode}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type Type="p:PrinterProduceMode"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="30" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="fullscrean" Panel.ZIndex="10" hc:IconElement.Geometry="{Binding fullscreenIcon}" Background="Transparent" BorderThickness="0" Width="50" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="fullscrean_Click" Margin="0,0,419,17"></Button>
+
+        <Border
+            Grid.Row="0"
+            Margin="10,10,10,10"
+            Height="600"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Panel.ZIndex="11"
+            Background="SlateGray"
+            CornerRadius="16,16,16,16"
+            Opacity="0.8" MouseMove="Border_MouseMove" MouseLeave="Border_MouseLeave">
+            <StackPanel
+                Width="100"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+
+                <!--<Button
+                    x:Name="ImportParts_Button" Width="40" Height="40" Margin="10" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Import}"
+                    hc:Poptip.Content="Import parts"
+                    hc:Poptip.Placement="TopLeft"
+                    Background="Transparent" BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}" CommandParameter="AddParts" Foreground="black" />-->
+                <Button
+                    x:Name="PrintSetup_Button" Width="40" Height="40" Margin="0,15,0,15" Padding="1" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="PrintTaskSetup"
+                    Foreground="Black" hc:IconElement.Geometry="{StaticResource i_PrintSetup}">
+                </Button>
+                <Button
+                    x:Name="PrintTaskMonitor_Button"  Width="40" Height="40" Margin="0,15,0,15" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_PrintTaskMonitor}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    hc:Poptip.Content="Print Task Monitor"
+                    hc:Poptip.Placement="TopLeft"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="PrintTaskMonitor"
+                    Foreground="black" />
+                <Button
+                    x:Name="printControl_Button" Width="40" Height="40" Margin="0,15,0,15" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_ManualOperat}"
+                    hc:Poptip.Content="Printer Control"
+                    hc:Poptip.Placement="TopLeft"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="PrintControlView"
+                    Foreground="black" />
+                <Button
+                    x:Name="History_Button" Width="40" Height="40" Margin="0,15,0,15" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_History}"
+                    hc:Poptip.Content="Printer Setting"
+                    hc:Poptip.Placement="TopLeft"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="History"
+                    Foreground="black" />
+                <Button
+                    x:Name="Setting_Button" Width="40" Height="40" Margin="0,15,0,15" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Setting}"
+                    hc:Poptip.Content="Printer Setting"
+                    hc:Poptip.Placement="TopLeft"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="Setting"
+                    Foreground="black" />
+
+                <Button
+                    x:Name="Info_Button" Width="40" Height="40" Margin="0,15,0,15" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Info}"
+                    hc:Poptip.Content="Printer Info"
+                    hc:Poptip.Placement="TopLeft"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="Info"
+                    Foreground="black" />
+                <Button
+                    x:Name="User_Button" Width="40" Height="40" Margin="0,15,0,15" Padding="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    hc:IconElement.Geometry="{StaticResource i_Custom}"
+                    hc:Poptip.Content="User Loggin"
+                    hc:Poptip.Placement="TopLeft"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="User"
+                    Foreground="black" />
+
+            </StackPanel>
+
+
+        </Border>
+        <local1:PrintScene3D
+            Grid.Row="0"
+            Margin="0,0,0,0"
+            Opacity="1"
+            DataContext="{Binding PrintScene3D_ViewModel}"
+            Visibility="Visible" >
+        </local1:PrintScene3D>
+        <!--<local1:AddParts
+            Grid.Row="0"
+            x:Name="addPartsView"
+            Margin="107,0,0,0"
+            HorizontalAlignment="Left"
+            IsHitTestVisible="True"
+            VerticalAlignment="Top"
+            Visibility="Hidden" />-->
+        <local1:PrintTaskSetup
+            x:Name="printTaskSetupView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            DataContext="{Binding PrintTaskSetup_ViewModel}"
+            Visibility="Hidden" />
+        <local1:PrintTaskMonitor
+            x:Name="printTaskMonitorView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            DataContext="{Binding PrintTaskMonitor_ViewModel}"
+            Visibility="Hidden" />
+        <local1:History
+            x:Name="historyView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Visibility="Hidden" />
+        <local1:Setting
+            x:Name="settingView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            DataContext="{Binding Setting_ViewModel}"
+            Visibility="Hidden" />
+        <local1:Info
+            x:Name="infoView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            HorizontalAlignment="Left"
+            IsHitTestVisible="True"
+            VerticalAlignment="Center"
+            Visibility="Hidden" />
+        <local1:User
+            x:Name="userView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            DataContext="{Binding User_ViewModel}"
+            Visibility="Hidden" />
+        <local1:PrintControl
+            x:Name="printControlView"
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            DataContext="{Binding PrintControl_ViewModel}"
+            Visibility="Hidden" />
+
+        <local1:ProjCalibrator
+            Grid.Row="0"
+            Margin="107,0,0,0"
+            IsHitTestVisible="True"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Visibility="{Binding ProjCalibratorVisibility}" />
+
+        <Border
+            x:Name="PrinterInfo"
+            Grid.Row="0" Visibility="Visible" 
+            Width="380" Height="200" Margin="5,5,5,5"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Background="SlateGray"  CornerRadius="16" Opacity="0.8">
+            <StackPanel Orientation="Vertical" Margin="15">
+                <StackPanel Orientation="Horizontal" Width="420">
+                    <StackPanel Orientation="Horizontal" Width="150">
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=DeviceId, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="16" BorderThickness="0" Padding="0,1,3,1" Margin="1" Height="28" Background="Transparent"/>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="("  FontSize="12" BorderThickness="0" Padding="0,1,0,1" Margin="0" Height="28" Background="Transparent"/>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=P_PrintId, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="0" Height="28" Background="Transparent"/>
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content=")   "  FontSize="12" BorderThickness="0" Padding="0,1,0,1" Margin="0" Height="28" Background="Transparent"/>
+                    </StackPanel>
+                    <Border  Width="270">
+                        <Label HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" Content="{Binding Path=tags, Source={x:Static Models:ClassValue.MESConfig}}" Background="Green"  FontSize="16" BorderThickness="0"  Padding="3,1,3,1" Margin="0" Height="28"/>
+
+                    </Border>
+                   
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Width="420">
+                    <StackPanel Orientation="Horizontal" Width="70">
+                        <Label Background="Transparent" BorderThickness="0" Content="打印批次:" Margin="0" Padding="0" HorizontalContentAlignment="Left"  HorizontalAlignment="Left"  FontSize="16"></Label>
+                    </StackPanel>
+                    <Border  Width="350">
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Content="{Binding Path=PrintTaskHolderx.MESTaskServerx.ReleaseBatchId}" Background="Yellow"  FontSize="16" BorderThickness="0"  Padding="3,1,3,1" Margin="0" Height="28"/>
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Width="420">
+                    <StackPanel Orientation="Horizontal" Width="70">
+                        <Label Background="Transparent" BorderThickness="0" Content="树脂编号:" Margin="0" Padding="0" HorizontalContentAlignment="Left"  HorizontalAlignment="Left"  FontSize="16"></Label>
+                    </StackPanel>
+                    <Border  Width="350">
+                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=SublotId, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="16" BorderThickness="0"  Padding="3,1,3,1" Margin="0" Height="28"/>
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Width="420">
+                    <StackPanel Orientation="Horizontal" Width="150">
+                        <Label Background="Transparent" BorderThickness="0" Content="打印机状态设置:" Margin="0" Padding="0" HorizontalContentAlignment="Left"  HorizontalAlignment="Left"  FontSize="16"></Label>
+                    </StackPanel>
+                    <Border  Width="180">
+                        <ComboBox HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" Width="130" FontSize="12" Opacity="0.8" ItemsSource="{Binding Source={StaticResource PrinterProduceModeEnum}}" SelectedValue="{Binding Path=PrinterProduceMode, Source={x:Static Models:ClassValue.MESConfig}}"/>
+                    </Border>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Button
+                    Height="40" Margin="0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Start}"
+                    Background="Transparent" BorderThickness="0" Foreground="LightSteelBlue"
+                    hc:Poptip.Content="开始打印"  hc:Poptip.Placement="Bottom"
+                    Command="{Binding PrinterControlCommand}" CommandParameter="StartPrint" />
+                    <Button
+                    Height="40" Margin="40,0,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Stop}"
+                    Background="Transparent" BorderThickness="0" Foreground="LightSteelBlue"
+                    hc:Poptip.Content="终止打印"  hc:Poptip.Placement="Bottom"
+                    Command="{Binding PrinterControlCommand}" CommandParameter="StopPrint" />
+                    <Button
+                    Height="40" Margin="40,0,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Gas}"
+                    Background="Transparent" BorderThickness="0" Foreground="LightSteelBlue"
+                    hc:Poptip.Content="补液"  hc:Poptip.Placement="Bottom"
+                    Command="{Binding PrinterControlCommand}" CommandParameter="AddResin" />
+                    <Button
+                    Height="40" Margin="40,0,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Elevator}"
+                    Background="Transparent" BorderThickness="0" Foreground="LightSteelBlue"
+                    hc:Poptip.Content="升降门"  hc:Poptip.Placement="Bottom"
+                    Command="{Binding PrinterControlCommand}" CommandParameter="Window" />
+                    <Button
+                    Height="40" Margin="40,0,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{StaticResource i_Exit}"
+                    Background="Transparent" BorderThickness="0" Foreground="LightSteelBlue"
+                    hc:Poptip.Content="退出程序"  hc:Poptip.Placement="Bottom" 
+                    Command="{Binding PrinterControlCommand}" CommandParameter="ShutDown" />
+                </StackPanel>
+            </StackPanel> 
+        </Border>
+        
+        <Border
+            x:Name="ScenePreviewPanel"
+            Grid.Row="0"
+            Width="380"
+            Margin="10,210,10,220"
+            MouseDown="SidePanel_MouseDown"
+            HorizontalAlignment="Right"
+            Background="SlateGray"
+            CornerRadius="16"
+            Opacity="0.8">
+
+            <StackPanel Margin="0" Orientation="Vertical" Visibility="Visible">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Background="Transparent" BorderThickness="0" Content="切层预览"/>
+                    <Slider x:Name="sliderLayer" 
+                        Width="280" Margin="5"
+                        Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Value="{Binding SliceAllIndex}"
+                        Maximum="{Binding SliceAllMaxHeight}"  Minimum="0.1"
+                         AutoToolTipPrecision="1" AutoToolTipPlacement="BottomRight" >
+                        <behavior:Interaction.Triggers>
+                            <behavior:EventTrigger  EventName="ValueChanged">
+                                <behavior:InvokeCommandAction Command="{Binding SliceAllLayerCommand}"/>
+                            </behavior:EventTrigger>
+                        </behavior:Interaction.Triggers>
+                    </Slider>
+                </StackPanel>
+                <Border CornerRadius="5"  Background="Transparent" Margin="10,0,10,20">
+                    <ListView
+                    x:Name="Models_ListView"
+                    Width="350"
+                    Margin="0"
+                    Height="385"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="DarkGray"
+                    BorderThickness="0"
+                    ItemsSource="{Binding _printtask.partModels}"
+                    SelectionChanged="ListView_SelectionChanged">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Top" />
+
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                Margin="5,5,5,5"
+                                Background="LightGray" Opacity="0.8"
+                                CornerRadius="15">
+                                    <StackPanel Margin="10" Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label
+                                            Margin="10,0,0,0"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding Path= index}"
+                                            FontSize="16" />
+                                            <Label
+                                            Margin="2,0,0,0"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="-"
+                                            FontSize="16" />
+                                            <Label
+                                            Width="160"
+                                            Margin="2,0,20,0"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding Path=fileName}"
+                                            FontSize="16" />
+                                            <CheckBox Content="是否打印" IsChecked="{Binding IsToPrint}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="20,3,20,3" Height="22" Orientation="Horizontal">
+                                            <Button Content="贴合底部" Height="22" Background="LightGray" BorderThickness="0" Padding="3" Command="{Binding ResetZ}" />
+                                            <Button Content="旋转90°" Margin="40,0,0,0" Height="22"  Background="LightGray" BorderThickness="0"  Padding="3"   />
+                                            <Button Content="重置位置" Margin="40,0,0,0" Height="22"  Background="LightGray" BorderThickness="0"  Padding="3"  Command="{Binding ResetXYZR}" />
+
+                                        </StackPanel>
+                                        <StackPanel Margin="10,0,10,3" Height="22" Orientation="Horizontal">
+                                            <Label
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                                Padding="2"
+                                                Height="22"
+                                            Content="排版位置:" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="x" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding TX}"
+                                            ContentStringFormat="0.00" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="y" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding TY}"
+                                            ContentStringFormat="0.00" />
+                                            <Label
+                                            Padding="2"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="z" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding TZ}"
+                                            ContentStringFormat="0.00" />
+                                            <Label
+                                            Padding="2"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="Rz" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding RZ}"
+                                            ContentStringFormat="0.00" />
+
+                                        </StackPanel>
+                                        <StackPanel Margin="10,0,10,3" Height="22"  Orientation="Horizontal">
+                                            <Label
+                                            Background="Transparent" Height="22" Padding="2"
+                                            BorderThickness="0"
+                                            Content="模型尺寸:" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="x" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding DX}"
+                                            ContentStringFormat="0.00" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="y" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding DY}"
+                                            ContentStringFormat="0.00" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="z" />
+                                            <Label
+                                            Padding="2" Height="22"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="{Binding DZ}"
+                                            ContentStringFormat="0.00" />
+
+                                        </StackPanel>
+                                        <Slider x:Name="sliderLayer" 
+                                            Value="{Binding SliceHeight}"
+                                            Maximum="{Binding MaxSliceHeight}"  Minimum="0.1" 
+                                             AutoToolTipPrecision="1" AutoToolTipPlacement="BottomRight" >
+                                            <behavior:Interaction.Triggers>
+                                                <behavior:EventTrigger  EventName="ValueChanged">
+                                                    <behavior:InvokeCommandAction Command="{Binding SliceLayerCommand}"/>
+                                                </behavior:EventTrigger>
+                                            </behavior:Interaction.Triggers>
+                                        </Slider>
+                                    </StackPanel>
+                                </Border>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+
+            </StackPanel>
+
+
+
+
+        </Border>
+
+        <Border
+            x:Name="MessageListviewPanel"
+            Grid.Row="0" Visibility="Visible" 
+            Width="380" Height="200" Margin="10,10,10,10"
+            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+            Background="SlateGray"  CornerRadius="16" Opacity="0.8">
+            <ListView x:Name="MessageListBox" Margin="10,10,10,10" Width="360" Height="190" AllowDrop="False" HorizontalAlignment ="Left"  VerticalAlignment="Top" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" ItemsSource="{Binding MessageBoxItems}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                        <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="VerticalContentAlignment" Value="Top" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0" HorizontalAlignment="Left">
+                            <Label MaxWidth="350" BorderThickness="0"  Background="Transparent" Margin="0" Padding="2" HorizontalAlignment ="Left" VerticalAlignment="Center" FontSize="15">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Left" Text="{Binding info}" />
+                            </Label>
+                        </Border>
+
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+        
+        <Border x:Name="ProgressView" 
+                Grid.Row="0"  Margin="0,0,300,0"
+            Width="380" Height="180"
+                IsHitTestVisible="True"
+            HorizontalAlignment="Center"
+            Background="SlateGray"
+                Visibility="{Binding ProgressControl.visibility}"
+            CornerRadius="16"
+            Opacity="0.8">
+            <StackPanel Orientation="Vertical">
+                <Label Content="{Binding ProgressControl.topic}" BorderThickness="0" Background="Transparent" FontSize="18"/>
+                <Label Margin="10,30,10,0" Content="{Binding ProgressControl.info}" Background="Transparent" BorderThickness="0" Padding="0" FontSize="10"/>
+                <ProgressBar Margin="5" Background="LightBlue" Foreground="RoyalBlue" Value="{Binding ProgressControl.value}"/>
+
+            </StackPanel>
+        </Border>
+        
+        <DockPanel Grid.Row="1">
+            <StatusBar DockPanel.Dock="Bottom" Background="LightBlue">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem>
+                    <TextBlock Name="lblCursorPosition" />
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="0" Padding="10,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse
+                                    x:Name="Icon_MCB_Status"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0"
+                                    Fill="{Binding PrinterStatusTipControl.pColor}"/>
+                        <Label Height="30" Width="50" Padding="0" BorderThickness="0" Background="Transparent"   Content="{Binding PrinterStatusTipControl.tips}"/>
+                        <Button Width="25" Height="12" Padding="0" hc:IconElement.Geometry="{StaticResource i_Projector}"
+                    Background="Transparent" BorderThickness="0" Foreground="{Binding PrinterStatusTipControl.p1Color}" />
+                        <Button Width="25" Height="12" Padding="0" hc:IconElement.Geometry="{StaticResource i_Projector}"
+                    Background="Transparent" BorderThickness="0" Foreground="{Binding PrinterStatusTipControl.p2Color}" />
+                        <Button Width="25" Height="12" Padding="0" hc:IconElement.Geometry="{StaticResource i_Controler}"
+                    Background="Transparent" BorderThickness="0" Foreground="{Binding PrinterStatusTipControl.cColor}" />
+                        <Button Width="15" Height="12" Padding="0" hc:IconElement.Geometry="{StaticResource i_PrintTask}"
+                    Background="Transparent" BorderThickness="0" Foreground="{Binding PrinterStatusTipControl.ptColor}" />
+                    </StackPanel>
+                </StatusBarItem>
+                <Separator Grid.Column="1" />
+                <StatusBarItem Grid.Column="2">
+                    
+                </StatusBarItem>
+                <Separator Grid.Column="3" />
+                <StatusBarItem Grid.Column="4">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="30"  Padding="0,0,5,0" BorderThickness="0" Foreground="{Binding PrintProgressControl.fColor}" Content="{Binding PrintProgressControl.layerTips}" Background="Transparent"/>
+                        <Button
+                    Height="15" Margin="2,0,4,0" Padding="0"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    hc:IconElement.Geometry="{Binding PrintProgressControl.printIcon}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    hc:Poptip.Content="Print Task Setup"
+                    hc:Poptip.Placement="TopLeft"
+                    Command="{Binding subViewSwitchCommand}"
+                    CommandParameter="PrintTaskSetup"
+                    Foreground="DarkGray" />
+                        <ProgressBar Visibility="{Binding PrintProgressControl.progressBarVisibility}" Foreground="{Binding PrintProgressControl.pColor}" Value="{Binding PrintProgressControl.progress}" Width="90" Height="16" />
+                    </StackPanel>
+                </StatusBarItem>
+                <Separator Grid.Column="5" />
+                <StatusBarItem Grid.Column="6">
+                    <Canvas Margin="0,0,0,0"  Width="20" Height="20" Background="Transparent">
+                        <ed:Arc VerticalAlignment="Center"  Visibility="{Binding ModelsTipControl.visibility}" Fill="{Binding ModelsTipControl.cColor}" Width="20"  Height="20" Margin="0,0,0,0" StartAngle="{Binding ModelsTipControl.startAngle}"  EndAngle="{Binding ModelsTipControl.endAngle}" Stretch="None" ArcThickness="{Binding ModelsTipControl.arcThickness}">
+                            <ed:Arc.Effect>
+                                <DropShadowEffect Color="LightBlue" ShadowDepth="1" BlurRadius="5" Opacity="0.8"/>
+                            </ed:Arc.Effect>
+                        </ed:Arc>
+                        <Label Content="{Binding ModelsTipControl.currInd}" Width="20" Height="20" Padding="0" Margin="0" FontSize="10" Background="Transparent" BorderThickness="0" Foreground="{Binding ModelsTipControl.fColor}"/>
+                    </Canvas>
+                </StatusBarItem>
+            </StatusBar>
+        </DockPanel>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,1034 @@
+﻿<UserControl
+    x:Class="AngelDLP.Views.PrintControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:AngelDLP.Views"
+    xmlns:models="clr-namespace:AngleDLP.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/" xmlns:viewmodels="clr-namespace:AngelDLP.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:PrintControlViewModel}"
+    Width="900"
+    Height="600" Visibility="{Binding ControlViewVisibility}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <models:DecimalConverter x:Key="decimalConverter"></models:DecimalConverter>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <!--<Button
+            Width="13"
+            Height="14"
+            Margin="0,170,0,0"
+            Padding="0"
+            HorizontalAlignment="left"
+            VerticalAlignment="Top"
+            hc:BorderElement.CornerRadius="5"
+            hc:IconElement.Geometry="{StaticResource i_ViewLeftFix}"
+            Background="Transparent"
+            BorderThickness="0"
+            Foreground="Gray"
+            Opacity="0.7" />-->
+        <Border
+            Margin="10,10,10,10"
+            Background="SlateGray"
+            CornerRadius="16"
+            Opacity="0.7">
+            <StackPanel Margin="0">
+                <Grid
+                    Height="578"
+                    Margin="0"
+                    Background="Transparent"
+                    Opacity="0.9">
+                    <TabControl
+                        Margin="25"
+                        Background="SlateGray"
+                        SelectedIndex="{Binding SelectedTabIndex}">
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="板卡">
+                            <Grid Margin="0" Background="SlateGray">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="28*"/>
+                                    <ColumnDefinition Width="27*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Width="138"
+                                    Height="55"
+                                    Margin="196,72,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonInitMCB_ClickCommand}"
+                                    Content="开卡" />
+                                <Button
+                                    Width="138"
+                                    Height="55"
+                                    Margin="10.5,72,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonCloseMCB_ClikCommand}"
+                                    Content="关卡" Grid.Column="1" />
+                                <Ellipse
+                                    x:Name="Icon_MCB_Status"
+                                    Height="50" Width="50"
+                                    Margin="52,73,317.5,368"
+                                    Fill="{Binding Icon_MCB_StatusFill}"
+                                    StrokeThickness="0" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="IO">
+                            <Grid Margin="0" Background="SlateGray">
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="52,72,727.714,367.714"
+                                    Fill="{Binding Icon_WindowLock_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="升降门解锁"
+                                    FontSize="18"
+                                    Margin="43,128,670,326"/>
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="219,83,575,378"
+                                    Fill="{Binding Icon_ScraperOut_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="刮刀安全位"
+                                    FontSize="18"
+                                    Margin="181,128,532,326"/>
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="409,83,391,375"
+                                    Fill="{Binding Icon_UpperDoorLock_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="上下门关好"
+                                    FontSize="18"
+                                    Margin="0,128,0,0" VerticalAlignment="Top" Width="122"/>
+
+
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="577,83,217,378"
+                                    Fill="{Binding Icon_ResinAddBoxGood_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="补液槽液位正常"
+                                    FontSize="18"
+                                    Margin="517,128,156,326"/>
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="729,83,65,378"
+                                    Fill="{Binding Icon_FootSwitchPressed_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="脚踏开关释放"
+                                    FontSize="18"
+                                    Margin="683,128,10,326"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="刮刀平台">
+                            <Grid Margin="0,0,0,0" Background="Transparent">
+                                <local:SliderStyle_Platform
+                                    x:Name="Slider_Platform"
+                                    Margin="230,168,0,0"
+                                    DataContext="{Binding Slider_PlatformDataContext}"
+                                    IsEnabled="False" />
+                                <Rectangle Fill="BurlyWood" Opacity="0.5" Canvas.Left="100" Canvas.Top="270" Margin="200,250,328,142"/>
+                                <Line
+                                        Stroke="Orange"
+                                        StrokeThickness="1"
+                                        X1="200"
+                                        X2="495"
+                                        Y1="250"
+                                        Y2="250" />
+                                <Label
+                                    Margin="53,428,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_EnvTemp}" />
+                                <Label
+                                    Margin="113,428,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_EnvHum}" />
+                                <Button
+                                    Width="110"
+                                    Margin="76,210,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonPTP_ClickCommand}"
+                                    CommandParameter="2"
+                                    Content="PTP" />
+                                <Button
+                                    Width="76"
+                                    Margin="110,250,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonScrapter_ClickCommand}"
+                                    CommandParameter="in"
+                                    Content="in" />
+                                <Button
+                                    Width="76"
+                                    Margin="10,250,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonScrapter_ClickCommand}"
+                                    CommandParameter="out"
+                                    Content="out" />
+                                <Button
+                                    Width="60"
+                                    Margin="11,169,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonEnable_ClickCommand}"
+                                    CommandParameter="2"
+                                    Content="上使能" />
+                                <Button
+                                    Width="60"
+                                    Margin="11,210,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonDisable_ClickCommand}"
+                                    CommandParameter="2"
+                                    Content="下使能" />
+                                <TextBox
+                                    Width="53"
+                                    Height="19"
+                                    Margin="76,169,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="15"
+                                    Text="{Binding TextBox_ScraperPos}"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                                <TextBox
+                                    Width="53"
+                                    Height="19"
+                                    Margin="133,169,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="15"
+                                    Text="{Binding TextBox_ScraperSpeed}"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                                <local:SliderStyle_Scraper
+                                    Margin="2,10,0,0"
+                                    DataContext="{Binding Slider_ScraperDataContext}"
+                                    IsEnabled="False" />
+
+                                <Button
+                                    Width="114"
+                                    Margin="536,151,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonPTP_ClickCommand}"
+                                    CommandParameter="0"
+                                    Content="PTP" />
+                                <Button
+                                    Width="58"
+                                    Margin="658,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonEnable_ClickCommand}"
+                                    CommandParameter="0"
+                                    Content="上使能" />
+                                <Button
+                                    Width="57"
+                                    Margin="658,150,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonDisable_ClickCommand}"
+                                    CommandParameter="0"
+                                    Content="下使能" />
+                                <TextBox
+                                    Width="54"
+                                    Height="19"
+                                    Margin="536,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="12"
+                                    Text="{Binding TextBox_PlatformPos}"
+                                    TextAlignment="Center"/>
+                                <TextBox
+                                    Width="54"
+                                    Height="19"
+                                    Margin="596,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="12"
+                                    Text="{Binding TextBox_PlatformSpeed}"
+                                    TextAlignment="Center" />
+                                <Label
+                                    Margin="219,128,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ScraperZleftPos}" />
+                                <Label
+                                    Margin="213,283,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ScraperZRightPos}" />
+                                <Label
+                                    Margin="348,192,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ScraperPos}" />
+                                <Label
+                                    Margin="526,243,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_PlatformPos}" />
+
+                                <Label
+                                    Margin="568,428,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ScrapeVacuum}" />
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="浮筒液位">
+                            <Grid Margin="0,0,0,0" Background="Transparent">
+                                <local:SliderStyle_Levelbox
+                                    x:Name="Slider_Levelbox"
+                                    Margin="65,220,274,57"
+                                    DataContext="{Binding Slider_LevelboxDataContext}"
+                                    IsEnabled="False" />
+                                <Canvas>
+                                    <Rectangle Width="400" Height="106" Fill="BurlyWood" Opacity="0.5" Canvas.Left="100" Canvas.Top="270"/>
+                                    <Line
+                                        Stroke="Orange"
+                                        StrokeThickness="1"
+                                        X1="100"
+                                        X2="500"
+                                        Y1="270"
+                                        Y2="270" />
+                                    <Line
+                                        Stroke="Red"
+                                        StrokeThickness="0.3"
+                                        X1="470"
+                                        X2="470"
+                                        Y1="250"
+                                        Y2="270" />
+                                    <Line
+                                        Stroke="Red"
+                                        StrokeThickness="0.3"
+                                        X1="485"
+                                        X2="470"
+                                        Y1="250"
+                                        Y2="270" />
+                                </Canvas>
+                                <Button
+                                    Width="66"
+                                    Margin="186,88,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonPTP_ClickCommand}"
+                                    CommandParameter="1"
+                                    Content="PTP" />
+                                <Button
+                                    Width="75"
+                                    Margin="281,47,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonEnable_ClickCommand}"
+                                    CommandParameter="1"
+                                    Content="上使能" />
+                                <Button
+                                    Width="75"
+                                    Margin="281,87,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonDisable_ClickCommand}"
+                                    CommandParameter="1"
+                                    Content="下使能" />
+                                <TextBox
+                                    Width="66"
+                                    Height="19"
+                                    Margin="186,47,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="15"
+                                    Text="{Binding TextBox_LevelboxPos}"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+
+                                <Label
+                                    Margin="395,265,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="16"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ResinTemp}" Width="95" />
+                                <Label
+                                    Margin="169,372,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_TankTemp}" Width="321" />
+                                <Label
+                                    Margin="609,103,0,0"
+                                    Panel.ZIndex="9"
+                                    Padding="1"
+                                    FontSize="13"
+                                    
+                                    HorizontalAlignment="Left"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ResinAddBoxLevel}" Height="25" Width="79" VerticalAlignment="Top" />
+                                <ProgressBar Name="pbStatus" Orientation="Vertical" Foreground="BurlyWood" FontSize="0.01" Value="{Binding Label_ResinAddBoxPercentage}" Margin="609,124,95,252" />
+                                <Label HorizontalAlignment="Center" FontSize="13" Padding="0" Background="Transparent" BorderThickness="0" Foreground="Orange" HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" Margin="667,175,149,299"></Label>
+                                <Path  Stroke="BurlyWood" StrokeThickness="5"  StrokeDashCap="Round" Margin="495,235,150,145" Stretch="Fill">
+                                    <Path.Data>
+                                        <GeometryGroup>
+                                            <PathGeometry Figures="M849.5 363.5C849.5 418.729 804.281 463.5 748.5 463.5 746.62 463.5 744.741 463.448 742.865 463.344" />
+                                        </GeometryGroup>
+                                    </Path.Data>
+                                </Path>
+                                <Label
+                                    Margin="640,397,0,0"
+                                    Padding="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="PV" Height="25" Width="79" />
+                                <Label
+                                    Margin="690,397,0,0"
+                                    Padding="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_ControlTempGet}" Height="25" Width="79" />
+                                <Label
+                                    Margin="640,439,0,0"
+                                    Padding="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="SV" Height="25" Width="79" />
+                                <TextBox
+                                    Margin="688,439,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Text="{Binding Label_ControlTempSet}" Width="73" />
+                                <Button
+                                    Width="72"
+                                    Margin="737,164,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonAddResind_ClickCommand}"
+                                    Content="加树脂" Height="39" />
+                                <Button
+                                    Width="34"
+                                    Margin="516,326,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Padding="0,-8,0,0" Foreground="Orange"
+                                    Command="{Binding ButtonAddResindValue_ClickCommand}"
+                                    Content="{Binding ResinAddValueStatus}" Opacity="0.8" Height="34" FontSize="35" VerticalContentAlignment="Center" BorderThickness="0" />
+                                <Rectangle
+                                    Width="38"
+                                    Height="28"
+                                    Margin="452,223,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Fill="LightBlue"
+                                    StrokeThickness="1" />
+                                <Label
+                                    Margin="506,210,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Content="{Binding Label_Level}"
+                                    FontSize="12" />
+                                <Label
+                                    Margin="65,210,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_LevelboxPos}" />
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem
+                            x:Name="TabIbem_Projector"
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="光机控制">
+                            <Grid Margin="0,0,0,0" Background="Transparent">
+                                <Rectangle Stroke="LightGray" Fill="LightSkyBlue" Opacity="0.3" Width="413" Height="258" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,214" RadiusX="15" RadiusY="15" RenderTransformOrigin="0.5,0.5">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleY="-1"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Canvas Margin="5,37,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="5" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120">
+                                        <StackPanel Margin="1" Orientation="Horizontal">
+                                            <Button Content="On" Margin="3,0,0,0" Padding="1" Width="40" Height="20"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="1-On"/>
+                                            <Button Content="Off" Margin="20,0,0,0" Padding="1" Width="40" Height="20"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="1-Off"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Rectangle Stroke="LightGray" Fill="LightSkyBlue" Opacity="0.3" Width="413" Height="258" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="410,-20,0,214" RadiusX="15" RadiusY="15" RenderTransformOrigin="0.5,0.5">
+                                        <Rectangle.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="-1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                    <Label Content="{Binding ProjectorOnOffStr[0]}" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="5,85,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="5" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Center" Height="117" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Button Content="On" Margin="3,0,0,0" Padding="1" Width="40" Height="20"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="1-LedOn"/>
+                                                <Button Content="Off" Margin="20,0,0,0" Padding="1" Width="40" Height="20"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="1-LedOff"/>
+                                            </StackPanel>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <Label Content="DAC(50-100):" Padding="0" Background="Transparent" BorderThickness="0" FontSize="11" Height="18" Width="71"/>
+                                                <TextBox Text="{Binding DAC_ValueSet[0]}" Padding="0" Background="Transparent" Height="16" Width="41" />
+                                            </StackPanel>
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Button Margin="10,0,0,0" Padding="2" Width="40" Height="20" Content="Set"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="1-LedSet"/>
+                                                <Button Margin="20,0,0,0" Padding="2" Width="40"  Height="20" Content="Get"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="1-LedGet"/>
+                                            </StackPanel>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <Label Content="LightSensor:" Padding="0" Background="Transparent" BorderThickness="0" FontSize="11" Width="70"/>
+                                                <TextBox Text="{Binding LightSensor_ValueSet[0]}" Padding="0"  Height="20" Background="Transparent" Width="41" />
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Rectangle Stroke="Transparent" Fill="{Binding ProjectorLEDOnOffIconColor[0]}" Width="15" Height="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="18" RadiusY="18" Canvas.Left="116" Canvas.Top="-8"/>
+                                    <Label Content="{Binding ProjectorLEDOnOffStr[0]}" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="133,170,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="5" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Width="275" Background="Transparent" HorizontalAlignment="Center" Height="107" VerticalAlignment="Top" Canvas.Top="-8">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="1-Source-0">HDMI</RadioButton>
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="1-Source-1">Ramp</RadioButton>
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="1-Source-2">CheckBoard</RadioButton>
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="1-Source-3">Solid</RadioButton>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Height="20" Margin="0,6,0,0" Command="{Binding ProjectorControlCommand}" CommandParameter="1-Resolution-1">4K</RadioButton>
+                                                <RadioButton Height="20" Margin="19,6,0,0" Command="{Binding ProjectorControlCommand}" CommandParameter="1-Resolution-0">Native</RadioButton>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Height="20" Margin="0,6,0,0"  IsChecked="{Binding ProjectorFlipSet[0][0]}" Command="{Binding ProjectorControlCommand}" CommandParameter="1-Flip-0">No</RadioButton>
+                                                <RadioButton Height="20" Margin="18,6,0,0"  IsChecked="{Binding ProjectorFlipSet[0][1]}" Command="{Binding ProjectorControlCommand}" CommandParameter="1-Flip-2">V</RadioButton>
+                                                <RadioButton Height="20" Margin="23,6,0,0"  IsChecked="{Binding ProjectorFlipSet[0][2]}" Command="{Binding ProjectorControlCommand}" CommandParameter="1-Flip-1">H</RadioButton>
+                                                <RadioButton Height="20" Margin="60,6,0,0"  IsChecked="{Binding ProjectorFlipSet[0][3]}" Command="{Binding ProjectorControlCommand}" CommandParameter="1-Flip-3">HV</RadioButton>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Image Set" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-16" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="165,37,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="3" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Width="137" Height="103" Canvas.Left="-36" Canvas.Top="1">
+                                        <StackPanel Orientation="Vertical">
+                                            <CheckBox Margin="1" IsChecked="{Binding FMotorDirSet[0]}" Height="18">Up/Down</CheckBox>
+                                            <Label Content="{Binding FMotorStatusSet[0]}" Padding="0" Background="Transparent" BorderThickness="0" Height="18" Width="110" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Label Content="steps/each:" Padding="0" Background="Transparent" FontSize="13" BorderThickness="0" Height="18" Width="65" HorizontalContentAlignment="Left"/>
+                                                <TextBox  Margin="6,0,0,0" Padding="0" Height="18" Text="{Binding FMotorStepSet[0]}" Width="40"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="home" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="20" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="1-FMotorHome"/>
+                                                <Button Content="step" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="20" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="1-FMotorStep"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Front Group Motor" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="265,37,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="3" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Width="142" Height="103">
+                                        <StackPanel Orientation="Vertical">
+                                            <CheckBox Margin="1" IsChecked="{Binding RMotorDirSet[0]}">Up/Down</CheckBox>
+
+                                            <Label Content="{Binding RMotorStatusSet[0]}" Height="20" Padding="0" Background="Transparent" BorderThickness="0" Width="110" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Label Content="steps/each:" Padding="0" Background="Transparent" BorderThickness="0" Width="65" HorizontalContentAlignment="Left"/>
+                                                <TextBox  Margin="6,1,0,1" Padding="0" Height="20" Text="{Binding RMotorStepSet[0]}" Width="40"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="home" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="25" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="1-RMotorHome"/>
+                                                <Button Content="step" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="25" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="1-RMotorStep"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Rear Group Motor" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="5,215,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="3" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Width="126" Background="Transparent" HorizontalAlignment="Center" Height="55" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="{Binding FunSpeedStrSet[0]}" Margin="0,2,0,2" Padding="1" FontSize="11"></Label>
+                                            <Label Content="{Binding TempStrSet[0]}" Margin="0,2,0,2" Padding="1" FontSize="11"></Label>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Temp / Fun Speed" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                    <Button Content="Get" BorderThickness="0.5" Padding="1" FontSize="9" Canvas.Left="95" Canvas.Top="-8" VerticalAlignment="Top" Height="17"
+                    Command="{Binding ProjectorControlCommand}" CommandParameter="1-InfoGet"/>
+                                </Canvas>
+                                <Rectangle Stroke="LightGray" Fill="LightSkyBlue" Opacity="0.3" Width="430" Height="256" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="412,20,0,522" RadiusX="27.286" RadiusY="27.286"/>
+                                <Canvas Margin="420,37,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="5" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120">
+                                        <StackPanel Margin="1" Orientation="Horizontal">
+                                            <Button Content="On" Margin="5,0,0,0" Padding="1" Width="40" Height="20"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="2-On"/>
+                                            <Button Content="Off" Margin="20,0,0,0" Padding="1" Width="40" Height="20"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="2-Off"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Rectangle Stroke="Transparent" Fill="{Binding ProjectorOnOffIconColor[1]}" Width="15" Height="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="18" RadiusY="18" Canvas.Left="117" Canvas.Top="-8"/>
+                                    <Label Content="{Binding ProjectorOnOffStr[1]}" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="420,85,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="5" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Center" Height="117" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Button Content="On" Margin="5,0,0,0" Padding="1" Width="40" Height="20"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="2-LedOn"/>
+                                                <Button Content="Off" Margin="20,0,0,0" Padding="1" Width="40" Height="20"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="2-LedOff"/>
+                                            </StackPanel>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <Label Content="DAC(50-100):" Padding="0" Background="Transparent" BorderThickness="0" FontSize="11" Height="18" Width="71"/>
+                                                <TextBox Text="{Binding DAC_ValueSet[1]}" Padding="0" Background="Transparent" Height="16" Width="41" />
+                                            </StackPanel>
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Button Margin="10,0,0,0" Padding="2" Width="40" Height="20" Content="Set"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="2-LedSet"/>
+                                                <Button Margin="20,0,0,0" Padding="2" Width="40"  Height="20" Content="Get"
+                                Command="{Binding ProjectorControlCommand}" CommandParameter="2-LedGet"/>
+                                            </StackPanel>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <Label Content="LightSensor:" Padding="0" Background="Transparent" BorderThickness="0" FontSize="11" Width="70"/>
+                                                <TextBox Text="{Binding LightSensor_ValueSet[1]}" Padding="0"  Height="20" Background="Transparent" Width="41" />
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Rectangle Stroke="Transparent" Fill="{Binding ProjectorLEDOnOffIconColor[1]}" Width="15" Height="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" RadiusX="18" RadiusY="18" Canvas.Left="116" Canvas.Top="-8"/>
+                                    <Label Content="{Binding ProjectorLEDOnOffStr[1]}" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="548,170,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="5" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Width="275" Background="Transparent" HorizontalAlignment="Center" Height="107" VerticalAlignment="Top" Canvas.Top="-8">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="2-Source-0">HDMI</RadioButton>
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="2-Source-1">Ramp</RadioButton>
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="2-Source-2">CheckBoard</RadioButton>
+                                                <RadioButton Height="20" Margin="0,6,0,0"  Command="{Binding ProjectorControlCommand}" CommandParameter="2-Source-3">Solid</RadioButton>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Height="20" Margin="0,6,0,0" Command="{Binding ProjectorControlCommand}" CommandParameter="2-Resolution-1">4K</RadioButton>
+                                                <RadioButton Height="20" Margin="19,6,0,0" Command="{Binding ProjectorControlCommand}" CommandParameter="2-Resolution-0">Native</RadioButton>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <RadioButton Height="20" Margin="0,6,0,0" IsChecked="{Binding ProjectorFlipSet[1][0]}" Command="{Binding ProjectorControlCommand}" CommandParameter="2-Flip-0">No</RadioButton>
+                                                <RadioButton Height="20" Margin="18,6,0,0" IsChecked="{Binding ProjectorFlipSet[1][1]}" Command="{Binding ProjectorControlCommand}" CommandParameter="2-Flip-2">V</RadioButton>
+                                                <RadioButton Height="20" Margin="23,6,0,0" IsChecked="{Binding ProjectorFlipSet[1][2]}" Command="{Binding ProjectorControlCommand}" CommandParameter="2-Flip-1">H</RadioButton>
+                                                <RadioButton Height="20" Margin="60,6,0,0" IsChecked="{Binding ProjectorFlipSet[1][3]}" Command="{Binding ProjectorControlCommand}" CommandParameter="2-Flip-3">HV</RadioButton>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Image Set" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-16" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="580,37,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="3" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Width="137" Height="106" Canvas.Left="-36" Canvas.Top="1">
+                                        <StackPanel Orientation="Vertical">
+                                            <CheckBox Margin="1" IsChecked="{Binding FMotorDirSet[1]}" Height="18">Up/Down</CheckBox>
+                                            <Label Content="{Binding FMotorStatusSet[1]}" Padding="0" Background="Transparent" BorderThickness="0" Height="18" Width="110" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Label Content="steps/each:" FontSize="13" Padding="0" Background="Transparent" BorderThickness="0" Height="18" Width="65" HorizontalContentAlignment="Left"/>
+                                                <TextBox  Margin="6,0,0,0" Padding="0" Height="18" Text="{Binding FMotorStepSet[1]}" Width="40"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="home" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="20" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="2-FMotorHome"/>
+                                                <Button Content="step" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="20" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="2-FMotorStep"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Front Group Motor" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="680,37,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="3" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Width="142" Height="106">
+                                        <StackPanel Orientation="Vertical">
+                                            <CheckBox Margin="1" IsChecked="{Binding RMotorDirSet[1]}">Up/Down</CheckBox>
+
+                                            <Label Content="{Binding RMotorStatusSet[1]}" Height="20" Padding="0" Background="Transparent" BorderThickness="0" Width="110" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                                            <StackPanel Margin="1" Orientation="Horizontal">
+                                                <Label Content="steps/each:" Padding="0" Background="Transparent" BorderThickness="0" Width="65" HorizontalContentAlignment="Left"/>
+                                                <TextBox  Margin="6,1,0,1" Padding="0" Height="20" Text="{Binding RMotorStepSet[1]}" Width="40"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="home" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="25" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="2-RMotorHome"/>
+                                                <Button Content="step" Margin="10,1,0,1" Padding="0" HorizontalAlignment="Left" Height="25" Width="50"
+                            Command="{Binding ProjectorControlCommand}" CommandParameter="2-RMotorStep"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Rear Group Motor" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                </Canvas>
+                                <Canvas Margin="4205,215,792,727" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border Padding="3" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Width="126" Background="Transparent" HorizontalAlignment="Center" Height="55" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="{Binding FunSpeedStrSet[1]}" Margin="0,2,0,2" Padding="1" FontSize="11"></Label>
+                                            <Label Content="{Binding TempStrSet[1]}" Margin="0,2,0,2" Padding="1" FontSize="11"></Label>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <Label Content="Temp / Fun Speed" BorderThickness="0" Background="Transparent" FontSize="9" Padding="0" Canvas.Left="10" Canvas.Top="-10" VerticalAlignment="Top"/>
+                                    <Button Content="Get" BorderThickness="0.5" Padding="1" FontSize="9" Canvas.Left="95" Canvas.Top="-8" VerticalAlignment="Top" Height="17"
+                    Command="{Binding ProjectorControlCommand}" CommandParameter="2-InfoGet"/>
+                                </Canvas>
+                            </Grid>
+
+                        </TabItem>
+                        <TabItem
+                            x:Name="TabIbem_ExposeTest"
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="曝光测试">
+                            <Grid Margin="0,0,0,0" Background="Transparent">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox SelectedIndex="{Binding SelectedProjectorIndex, Mode=TwoWay}"   VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Width="97" Height="40" Margin="0,2,0,2" Background="Transparent">
+                                            <ComboBoxItem IsSelected="True">Proj1</ComboBoxItem>
+                                            <ComboBoxItem >Proj2</ComboBoxItem>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="光强均匀性矫正:" Background="Transparent" BorderThickness="0"></Label>
+                                        <Button Content="查看SOP" Command="{Binding ExposeCommand}"  CommandParameter="GrayCalibSop"/>
+                                        <Button Content="开始" Command="{Binding ExposeCommand}"  CommandParameter="StartGrayCalib"/>
+                                        <Label Content="光强->" Background="Transparent" BorderThickness="0"></Label>
+                                        <TextBox Text="{Binding GrayItemValue}" Width="100"/>
+                                        <Button Content="下一点" Command="{Binding ExposeCommand}"  CommandParameter="GrayCalibNext"/>
+                                        <Button Content="查看结果" Command="{Binding ExposeCommand}"  CommandParameter="GrayCalibViewer"/>
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="圆孔矫正:" Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="查看SOP" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibSop"/>
+                                        <Button Width="90" Height="35" Content="开始校准"
+                                         Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibStart"/>
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <Label Content="x " Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="-"  Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibX-"/>
+                                        <TextBox  Background="Transparent" BorderThickness="0">
+                                            <TextBox.Text>
+                                                <Binding Path="HoleCalibX" StringFormat="{}{0:F2}"/>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Button Content="+" Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibX+"/>
+                                        <Label Content="y " Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="-"  Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibY-"/>
+                                        <TextBox  Background="Transparent" BorderThickness="0">
+                                            <TextBox.Text>
+                                                <Binding Path="HoleCalibY" StringFormat="{}{0:F2}"/>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Button Content="+" Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibY+"/>
+                                        <Label Content="rz " Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="-" Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibRz-"/>
+                                        <TextBox  Background="Transparent" BorderThickness="0">
+                                            <TextBox.Text>
+                                                <Binding Path="HoleCalibRz" StringFormat="{}{0:F4}"/>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Button Content="+" Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibRz+"/>
+                                        <Label Content="scale " Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="-" Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibScale-"/>
+                                        <TextBox  Background="Transparent" BorderThickness="0">
+                                            <TextBox.Text>
+                                                <Binding Path="HoleCalibScale" StringFormat="{}{0:F5}"/>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Button Content="+" Width="30" Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibScale+"/>
+                                        <Button Width="90" Height="35" Content="完成校准"
+                                         Command="{Binding ExposeCommand}"  CommandParameter="HoleCalibEnd"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="高度矫正:" Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="查看SOP" Command="{Binding ExposeCommand}"  CommandParameter="BaseCalibSop"/>
+                                        <Button Width="90" Height="35" Content="液位准备"
+                                         Command="{Binding ExposeCommand}"  CommandParameter="LevelPrep"/>
+                                        <Button Content="开始打印" Command="{Binding ExposeCommand}"  CommandParameter="StartBaseCalibPrint"/>
+                                        <Button Content="导入结果并生成数据" Command="{Binding ExposeCommand}"  CommandParameter="BaseCalibInput"/>
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="悬浮曝光:" Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="查看SOP" Command="{Binding ExposeCommand}"  CommandParameter="FloatExposeSop"/>
+                                        <Button Width="90" Height="35" Content="液位准备"
+                                         Command="{Binding ExposeCommand}"  CommandParameter="LevelPrep"/>
+                                        <Label Content="DAC(1-1000):" Background="Transparent"/>
+                                        <TextBox x:Name="DAC_TextBox"   Height="35" Width="75" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding DacValue}"/>
+                                        <Label Content="Time(ms):" Background="Transparent" BorderThickness="0"/>
+                                        <TextBox x:Name="ExposeTime_TextBox"   Height="35" Width="82" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding ExposeTimeValue}"/>
+                                        <Button
+                                            Height="35" Content="曝光"
+                                            Command="{Binding ExposeCommand}" CommandParameter="FloatExpose"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="液位校准:" Background="Transparent" BorderThickness="0"/>
+                                        <Button Content="查看SOP" Command="{Binding ExposeCommand}"  CommandParameter="LevelCalibSop"/>
+                                        <Button Content="开始自动校准" Command="{Binding ExposeCommand}"  CommandParameter="LevelCalib"/>
+                                        <Button Content="查看结果" Command="{Binding ExposeCommand}"  CommandParameter="LevelCalibViewer"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Height="268.8" Width="500" Text="{Binding SopText}"/>
+                                        <Image Height="269" Width="327" Source="{Binding ResImage}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+
+                            </Grid>
+
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="20"
+                            Header="升降门控制">
+                            <Grid Margin="0,0,0,0" Background="Transparent">
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="62,20,738,438"
+                                    Fill="{Binding Icon_WindowLock_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="升降门解锁"
+                                    FontSize="18"
+                                    Margin="46,57,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Ellipse
+                                    Width="30"
+                                    Height="30"
+                                    Margin="409,13,391,445"
+                                    Fill="{Binding Icon_UpperDoorLock_StatusFill}"
+                                    StrokeThickness="4" />
+                                <Label
+                                    Content="上下门关好"
+                                    FontSize="18"
+                                    Margin="0,52,0,0" VerticalAlignment="Top" Width="122"/>
+                                <Button
+                                    Width="114"
+                                    Margin="536,151,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonPTP_ClickCommand}"
+                                    CommandParameter="3"
+                                    Content="PTP" />
+                                <Button
+                                    Width="58"
+                                    Margin="658,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonEnable_ClickCommand}"
+                                    CommandParameter="3"
+                                    Content="上使能" />
+                                <Button
+                                    Width="57"
+                                    Margin="658,150,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding ButtonDisable_ClickCommand}"
+                                    CommandParameter="3"
+                                    Content="下使能" />
+                                <Button
+                                    x:Name="Button_WindowUp"
+                                    Width="58"
+                                    Margin="458,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    PreviewMouseDown ="Button_MouseAction"
+                                    PreviewMouseUp="Button_MouseAction"
+                                    Content="上升" />
+                                <Button
+                                    x:Name="Button_WindowDown"
+                                    Width="57"
+                                    Margin="458,150,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    PreviewMouseDown ="Button_MouseAction"
+                                    PreviewMouseUp="Button_MouseAction"
+                                    Content="下降" />
+                                <Button
+                                    Width="57"
+                                    Margin="391,150,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command ="{Binding WindowControlCommand}"
+                                    CommandParameter="Home"
+                                    Content="回原" />
+                                <Button
+                                    Width="137"
+                                    Margin="14,272,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command ="{Binding WindowControlCommand}"
+                                    CommandParameter="Init"
+                                    Content="初始化" Height="64" />
+                                <Button
+                                    Width="137"
+                                    Margin="164,272,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command ="{Binding WindowControlCommand}"
+                                    CommandParameter="Lock"
+                                    Content="鎖定" Height="64" />
+                                <Button
+                                    Width="137"
+                                    Margin="320,272,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command ="{Binding WindowControlCommand}"
+                                    CommandParameter="Unlock"
+                                    Content="解鎖" Height="64" />
+                                <Button
+                                    Width="156"
+                                    Margin="472,272,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command ="{Binding WindowControlCommand}"
+                                    CommandParameter="Open"
+                                    Content="开门" Height="64"  />
+                                <Button
+                                    Width="156"
+                                    Margin="644,272,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Command ="{Binding WindowControlCommand}"
+                                    CommandParameter="Close"
+                                    Content="关门" Height="64"  />
+                                <TextBox
+                                    Width="54"
+                                    Height="19"
+                                    Margin="536,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="12"
+                                    Text="{Binding TextBox_WindowPos}"
+                                    TextAlignment="Center"/>
+                                <TextBox
+                                    Width="54"
+                                    Height="19"
+                                    Margin="596,110,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="12"
+                                    Text="{Binding TextBox_WindowSpeed}"
+                                    TextAlignment="Center" />
+                                <Label
+                                    Margin="199,125,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="{Binding Label_WindowPos}" />
+                            </Grid>
+
+                        </TabItem>
+                    </TabControl>
+
+                </Grid>
+
+
+
+            </StackPanel>
+
+
+
+        </Border>
+        <Button
+            Width="20"
+            Height="20"
+            Margin="20"
+            Padding="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            hc:BorderElement.CornerRadius="5"
+            hc:IconElement.Geometry="{StaticResource i_Close}"
+            Background="Transparent"
+            BorderThickness="0"
+            Command="{Binding CloseCommand}" />
+    </Grid>
+
+</UserControl>

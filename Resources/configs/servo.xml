@@ -1,0 +1,17 @@
+<values>
+  <TB22 intvalue="5" />
+  <TB12 intvalue="2" />
+  <TemValue intvalue="35" />
+  <RelPos4 intvalue="800" />
+  <AbsPos4 intvalue="-65" />
+  <Sp4 intvalue="100" />
+  <RelPos3 intvalue="-10" />
+  <AbsPos3 intvalue="52" />
+  <Sp3 intvalue="30" />
+  <RelPos2 intvalue="-11" />
+  <AbsPos2 intvalue="101" />
+  <Sp2 intvalue="10" />
+  <RelPos1 intvalue="-10" />
+  <AbsPos1 intvalue="101" />
+  <Sp1 intvalue="10" />
+</values>

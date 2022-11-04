@@ -1,0 +1,173 @@
+﻿<UserControl
+    x:Class="AngelDLP.Views.History"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:oxyWpf="http://oxyplot.org/wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:AngelDLP.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="800"
+    Height="600"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <!--<Button
+            Width="13"
+            Height="14"
+            Margin="0,140,0,0"
+            Padding="0"
+            HorizontalAlignment="left"
+            VerticalAlignment="Top"
+            hc:BorderElement.CornerRadius="5"
+            hc:IconElement.Geometry="{StaticResource i_ViewLeftFix}"
+            Background="Transparent"
+            BorderThickness="0"
+            Foreground="Gray"
+            Opacity="0.7" />-->
+        <Border
+            Margin="10,10,10,10"
+            Background="SlateGray"
+            CornerRadius="16"
+            Opacity="0.7">
+            <StackPanel Margin="20,50,20,50" Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Height="493" Width="200">
+                    <DatePicker Background="SlateGray" Opacity="0.9" Foreground="White"  BorderThickness="1" 
+                                SelectedDateChanged="HistoryDate_SelectionChanged"/>
+                    <ListView ItemsSource="{Binding PrintTaskDBInfos}"  Background="SlateGray"  Opacity="0.9"  BorderThickness="0" SelectionChanged="PrintLog_SelectionChanged" HorizontalAlignment="Left" BorderBrush="Gray" Width="200" Margin="0" Padding="0" Height="454">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Top" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="185" HorizontalAlignment="Left" Margin="1,1,1,1" Padding="0" Background="LightBlue" Opacity="1" BorderThickness="1" BorderBrush="AliceBlue"
+                                CornerRadius="5">
+                                    <StackPanel Margin="0" Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label
+                                            Margin="15,5,5,0" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="{Binding name}"
+                                            FontSize="15" />
+                                            <Button
+                            Width="25" Height="13" Margin="0,0,0,0" Padding="1"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path= isMesTask , Converter={StaticResource BoolToVis}}"
+                            hc:BorderElement.CornerRadius="5"  hc:IconElement.Geometry="{StaticResource i_Cloud}"
+                            Background="Transparent"  BorderThickness="0"
+                            hc:Poptip.Content="Start MES Printing" hc:Poptip.Placement="TopLeft"
+                            Command="{Binding SelectPrintModeCommand}" CommandParameter="2" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label
+                                            Margin="15,1,1,1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="数量:"
+                                            FontSize="12" />
+                                            <Label
+                                            Margin="1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="{Binding partNum, Mode=TwoWay, TargetNullValue={x:Static sys:String.Empty}, UpdateSourceTrigger=PropertyChanged}"
+                                            FontSize="12" />
+                                            <Label
+                                            Margin="1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="进度:"
+                                            FontSize="12" />
+                                            <Label
+                                            Margin="1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="进度:"
+                                            FontSize="12" />
+                                            <Label
+                                            Margin="1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="{Binding Path= layerPrinted}"
+                                            FontSize="12" />
+                                            <Label
+                                            Margin="1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="/"
+                                            FontSize="12" />
+                                            <Label
+                                            Margin="1" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="{Binding Path= layerCounts}"
+                                            FontSize="12" />
+                                            <CheckBox IsChecked="{Binding isFinished}" IsEnabled="False" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label
+                                            Margin="15,1,1,5" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"  BorderThickness="0"
+                                            Content="{Binding startTime, StringFormat=\{0:MM/dd hh:mm\}}"
+                                            FontSize="12" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <StackPanel>
+                    <TabControl Background="Transparent" BorderBrush="Gray" Height="480" Width="549" SelectionChanged="TabControl_SelectionChanged">
+                        <TabItem Header="排版"  Background="Transparent">
+                            <Grid Margin="0">
+                                <Image Width="500" HorizontalAlignment="Center" Source="{Binding LayoutImage}" VerticalAlignment="Center"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="任务信息"  Background="Transparent">
+                            <Grid Margin="0">
+                                <TextBox Margin="10" VerticalAlignment="Top" Text="{Binding PrintInfoText}" Background="SlateGray"  BorderThickness="0"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="文件"  Background="Transparent">
+                            <Grid>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="过程记录"  Background="Transparent">
+                            <Grid>
+                                <oxyWpf:PlotView Foreground="Black" Margin="5,45,10,0" Background="Transparent" Model="{Binding ChartModel}" Visibility="{Binding IsChartVisiable }">
+                                </oxyWpf:PlotView>
+                                <StackPanel Margin="272,5,20,408" Orientation="Horizontal" IsEnabled="True" Visibility="Visible" >
+                                    <Viewbox Height="30">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <RadioButton Visibility="{Binding IsChartVisiable }" IsChecked="{Binding TempOrVaccum}">Temp</RadioButton>
+                                            <RadioButton Visibility="{Binding IsChartVisiable }" >Vaccum</RadioButton>
+                                        </StackPanel>
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </StackPanel>
+
+        </Border>
+    </Grid>
+
+</UserControl>

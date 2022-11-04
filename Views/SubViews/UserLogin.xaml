@@ -1,0 +1,80 @@
+﻿<Window
+    x:Class="AngelDLP.Views.UserLogin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:AngelDLP.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    AllowsTransparency="True"
+    WindowStyle="None"
+    Opacity="1"
+    Background="Transparent"
+    Width="400" Height="600" 
+    mc:Ignorable="d">
+    <Window.Resources>
+        <GeometryGroup x:Key="i_Close1" >
+            <CombinedGeometry>
+                <CombinedGeometry.Geometry1>
+                    M912.229327 990.355899c-8.580375 0-17.386549-3.38699-23.934729-9.935171L72.933186 165.285116a33.644101 33.644101 0 0 1 0-47.86946 33.644101 33.644101 0 0 1 47.86946 0l815.135612 815.135612c13.322161 13.322161 13.322161 34.773098 0 47.86946-6.322381 6.77398-15.128556 9.935171-23.708931 9.935171z
+                </CombinedGeometry.Geometry1>
+                <CombinedGeometry.Geometry2>
+                    M97.093716 990.355899c-8.580375 0-17.386549-3.38699-23.93473-9.935171a33.644101 33.644101 0 0 1 0-47.86946l815.135612-815.135612a33.644101 33.644101 0 0 1 47.869459 0c13.322161 13.322161 13.322161 34.773098 0 47.86946l-815.135612 815.135612c-6.77398 6.77398-15.354355 9.935171-23.934729 9.935171z
+                </CombinedGeometry.Geometry2>
+            </CombinedGeometry>
+        </GeometryGroup>
+    </Window.Resources>
+    <Grid>
+        <Border CornerRadius="20"
+            Margin="0" FocusManager.FocusedElement="{Binding ElementName=id_TextBox}"
+            Background="SlateGray">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Height="73" >
+                    <Label Content="光固化3D打印(AM400)" HorizontalContentAlignment="Left" Foreground="LightGray"  Margin="20,15,0,22" Padding="0" Background="Transparent" BorderThickness="0" FontSize="18" Width="285"/>
+                    <Button x:Name="Button_Close" Foreground="LightGray"
+                    Width="20" Height="20" Margin="63,15,0,0" Padding="0,-12,0,0"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                    hc:BorderElement.CornerRadius="5"
+                        Content="x" FontSize="30"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Close_Click" />
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal"  >
+                    <Border Margin="0,20,0,0" CornerRadius="5" Height="200"  Background="Transparent">
+                        <Image
+                                Width="390"
+                                Height="100"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Source="\Resources\angel_logo.png" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,30,0,0"  HorizontalAlignment="Center"  >
+                    <Label Content="用户名:" Padding="0" VerticalContentAlignment="Center" Foreground="LightGray" Background="Transparent" BorderThickness="0" FontSize="20" Width="70"></Label>
+                    <TextBox x:Name="id_TextBox" Margin="0,0,0,0" VerticalContentAlignment="Center"  KeyDown="id_TextBox_KeyDown" Width="150" Height="35" Visibility="{Binding YesButtonEnable}" Background="LightGray" Opacity="0.6" BorderThickness="1" BorderBrush="Gray"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center"  >
+                    <Label Content="密    码:" Padding="0" VerticalContentAlignment="Center" Foreground="LightGray" Background="Transparent" BorderThickness="0" FontSize="20"  Width="70"></Label>
+                    <PasswordBox x:Name="passwordBox" VerticalContentAlignment="Center" KeyDown="passwordBox_KeyDown" Margin="0,0,0,0" PasswordChar="*" Width="150"  Height="35" Visibility="{Binding YesButtonEnable}" Background="LightGray"  Opacity="0.6" BorderThickness="1" BorderBrush="Gray"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
+                    <TextBlock x:Name="tips_Label" TextWrapping="Wrap"  Text="线上生产请刷卡" Background="Transparent" Foreground="LightGray" FontSize="10" TextAlignment="Center"  Padding="0,10,0,0" Height="60" Width="230"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="60"  HorizontalAlignment="Center"  >
+                    <Button x:Name="Confirm_Button" Click="Confirm_Click" Foreground="LightGray"  Content="确认"  Width="120" Height="40" Visibility="{Binding YesButtonEnable}" Background="CornflowerBlue" BorderThickness="1" BorderBrush="Gray"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+
+</Window>

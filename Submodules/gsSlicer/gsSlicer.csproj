@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+    <Title>gsSlicer</Title>
+    <Authors>Ryan Schmidt</Authors>
+    <Company>gradientspace</Company>
+    <Description>3D printing slicer</Description>
+    <Copyright>Copyright © Ryan Schmidt 2016</Copyright>
+    <PackageLicenseUrl>https://github.com/gradientspace/gsSlicer/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/gradientspace/gsSlicer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gradientspace/gsSlicer</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>gsSlicer</AssemblyName>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="thirdparty\**" />
+    <EmbeddedResource Remove="thirdparty\**" />
+    <None Remove="thirdparty\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\geometry3Sharp\geometry3Sharp.csproj" />
+    <ProjectReference Include="..\gsGCode\gsGCode.csproj" />
+    <ProjectReference Include="thirdparty\clipper_library\clipper_library.csproj" />
+  </ItemGroup>
+</Project>

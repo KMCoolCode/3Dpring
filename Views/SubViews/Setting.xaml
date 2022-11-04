@@ -1,0 +1,736 @@
+﻿<UserControl
+    x:Class="AngelDLP.Views.Setting"
+    xmlns:Models ="clr-namespace:AngleDLP.Models"
+    xmlns:p ="clr-namespace:DataService.Models.Dto.Pcloud;assembly=DataService"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:AngelDLP.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/" xmlns:viewmodels="clr-namespace:AngelDLP.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SettingViewModel}"
+    Width="700"
+    Height="500"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="PrinterProduceModeEnum" MethodName="GetValues" ObjectType="{x:Type p:PrinterProduceMode}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="p:PrinterProduceMode"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="PrinterAlertsEnum" MethodName="GetValues" ObjectType="{x:Type p:PrinterAlerts}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="p:PrinterAlerts"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="PrinterEventLevelEnum" MethodName="GetValues" ObjectType="{x:Type p:PrinterEventLevel}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="p:PrinterEventLevel"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid>
+        <Border
+            Margin="10,10,10,10"
+            Background="SlateGray"
+            CornerRadius="16"
+            Opacity="0.7">
+            <StackPanel Margin="0">
+                <Grid
+                    Height="459"
+                    Margin="0"
+                    Background="Transparent"
+                    Opacity="0.9">
+                    <TabControl
+                        Margin="25"
+                        Background="SlateGray"
+                        SelectedIndex="{Binding SelectedTabIndex}">
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="18"
+                            Header="程序配置">
+                            <Grid Margin="0,10,0,0" Background="SlateGray">
+                                <Rectangle RadiusX="20" RadiusY="20" Fill="LightGray" Opacity="0.8" />
+                                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                                    <ScrollViewer  Height="320" Width="600" Margin="0,0,0,0" VerticalAlignment="Top"  BorderThickness="2">
+
+                                        <StackPanel Margin="2,2,2,2"  Orientation="Vertical">
+                                            <StackPanel Margin="2,2,2,2"  Orientation="Vertical">
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="MES:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="MesHead:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=MesHead, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="tags:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=tags, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="maxLimit:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Path=maxLimit, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="isManual:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding isManual}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="DeviceId:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=DeviceId, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="P_PrintId:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=P_PrintId, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="P_PrintToken:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=P_PrintToken, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="SublotId:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=SublotId, Source={x:Static Models:ClassValue.MESConfig}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                    <Label Background="Transparent" BorderThickness="0" Content="PrinterProduceMode:" Margin="0" Padding="0" HorizontalContentAlignment="Left"  HorizontalAlignment="Left"  FontSize="12"></Label>
+                                                    <ComboBox  Height="30" Width="100" FontSize="12" ItemsSource="{Binding Source={StaticResource PrinterProduceModeEnum}}" SelectedValue="{Binding Path=PrinterProduceMode, Source={x:Static Models:ClassValue.MESConfig}}" >
+
+                                                    </ComboBox>
+
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="PrintTaskConfigName:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Source={x:Static Models:ClassValue.DefalutPrintTaskConfigName}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="version:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Source={x:Static Models:ClassValue.DefalutPrintTaskConfigVersion}}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+
+                                                </StackPanel>
+                                            </StackPanel>
+                                            
+                                            
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top" Visibility="Collapsed">
+                                                <Label Content="PCloud 测试:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Label Content="Alerts:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" />
+                                                <ComboBox  Height="30" Width="142" FontSize="13" ItemsSource="{Binding Source={StaticResource PrinterAlertsEnum}}" SelectedIndex="{Binding SelectedPrintAlert}"/>
+                                                <CheckBox Content="active" Margin="10,0,0,0" IsChecked="{Binding AlertChecked}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Height="30" Width="86"/>
+                                                <Button Margin="10,0,0,0" Height="30" Width="80" FontSize="15" Padding="1" Content="确认" Command="{Binding UpdateAlertCommand}"></Button>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Label Content="Message:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" />
+                                                <TextBox Text="{Binding MessageToUpdate}" Width="235"/>
+                                                <ComboBox  Height="30" Width="142" FontSize="13" ItemsSource="{Binding Source={StaticResource PrinterEventLevelEnum}}" SelectedIndex="{Binding SelectedLev}">
+
+                                                </ComboBox>
+                                                
+                                                <Button Margin="10,0,0,0" Height="30" Width="80" FontSize="15" Padding="1" Content="确认" Command="{Binding UpdateMessageCommand}"></Button>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Label Content="Sublots:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" />
+                                                <TextBox Text="{Binding SublotToUpdate}" Width="235"/>
+                                                <Button Margin="10,0,0,0" Height="30" Width="80" FontSize="15" Padding="1" Content="确认" Command="{Binding UpdateSublotCommand}"></Button>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </ScrollViewer>
+
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="18"
+                            Header="运动配置">
+                            <Grid Margin="0,10,0,0" Background="SlateGray">
+                                <Rectangle RadiusX="20" RadiusY="20" Fill="LightGray" Opacity="0.8" />
+                                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                                    <ScrollViewer Height="320" Margin="0,0,0,0" VerticalAlignment="Top">
+                                        <StackPanel Margin="2,2,2,2"  Orientation="Vertical">
+                                            <StackPanel Margin="2,2,2,2"  Orientation="Vertical">
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="轴配置:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Line Width="600" StrokeThickness="1"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="刮刀:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="startPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.scraperConfig.startPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="zeroPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.scraperConfig.zeroPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="endPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.scraperConfig.endPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="inPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.scraperConfig.inPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="testPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.scraperConfig.testPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="OutPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.scraperConfig.outPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.scraperConfig.zSensers}" >
+                                                        <ListView.Resources>
+                                                            <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                            </Style>
+                                                        </ListView.Resources>
+                                                        <ListView.ItemContainerStyle>
+                                                            <Style TargetType="ListViewItem">
+                                                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                                <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                            </Style>
+                                                        </ListView.ItemContainerStyle>
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                    <StackPanel Margin="0" Orientation="Vertical">
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="zValue:" FontSize="16" />
+                                                                            <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=zValue}" FontSize="16" />
+                                                                            <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="zGap:" FontSize="16" />
+                                                                            <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=zGap}" FontSize="16" />
+                                                                            <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="x:" FontSize="16" />
+                                                                            <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=x}" FontSize="16" />
+                                                                            <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="port:" FontSize="16" />
+                                                                            <Label Width="60" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=port}" FontSize="16" />
+                                                                            <CheckBox Content="isMotive" IsChecked="{Binding isMotive}" />
+                                                                            <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="moveIOport:" FontSize="16" />
+                                                                            <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=moveIOport}" FontSize="16" />
+                                                                        </StackPanel>
+                                                                    </StackPanel>
+                                                                </Border>
+
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                </StackPanel>
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="平台:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="startPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.platformConfig.startPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="zeroPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.platformConfig.zeroPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="endPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.platformConfig.endPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="浮筒:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="startPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.levelBoxConfig.startPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="zeroPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.levelBoxConfig.zeroPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="endPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.levelBoxConfig.endPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="升降门:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="startPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.startPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="zeroPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.zeroPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="endPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.endPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                    <Label Content="LockPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.LockPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="UpPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.UpPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="DownPos:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.DownPos}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                    <Label Content="initBackDist:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.windowConfig.initBackDist}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="液位控制参数:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="2,2,2,2"  Orientation="Vertical">
+                                                <Label Content="zCrossArea:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" Width="150" VerticalContentAlignment="Center" Content="{Binding PMC._config.levelControlConfig.zCrossArea}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="floatCrossArea:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" Width="150"  VerticalContentAlignment="Center" Content="{Binding PMC._config.levelControlConfig.floatCrossArea}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="tankCrossArea:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" Width="150"  VerticalContentAlignment="Center" Content="{Binding PMC._config.levelControlConfig.tankCrossArea}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="ADconfigs:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.ADconfigs}" >
+                                                    <ListView.Resources>
+                                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                        </Style>
+                                                    </ListView.Resources>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                <StackPanel Margin="0" Orientation="Vertical">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="name:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=name}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="sn:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=sn}" FontSize="16" />
+                                                                        <CheckBox Content="isSingle" IsChecked="{Binding isSingle}" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="nickName:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=nickName}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="port:" FontSize="16" />
+                                                                        <Label Width="60" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=port}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="k1:" FontSize="16" />
+                                                                        <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=k1}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="k0:" FontSize="16" />
+                                                                        <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=k0}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Border>
+
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="DIconfigs:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.DIconfigs}" >
+                                                    <ListView.Resources>
+                                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                        </Style>
+                                                    </ListView.Resources>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                <StackPanel Margin="0" Orientation="Vertical">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="name:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=name}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="port:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=port}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="nickName:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=nickName}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Border>
+
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="DOconfigs:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.DOconfigs}">
+                                                    <ListView.Resources>
+                                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                        </Style>
+                                                    </ListView.Resources>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                <StackPanel Margin="0" Orientation="Vertical">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="name:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=name}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="port:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=port}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="nickName:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=nickName}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Border>
+
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="RFIDConfigs:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.RFIDConfigs}" >
+                                                    <ListView.Resources>
+                                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                        </Style>
+                                                    </ListView.Resources>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                <StackPanel Margin="0" Orientation="Vertical">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="name:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=name}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="port:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=port}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="nickName:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=nickName}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="ip:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=ip}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="length:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=length}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Border>
+
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <hc:Divider HorizontalAlignment="Center" Width="570"  Margin="0" VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="ModBus:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="com:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.modBusConfig.com}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="baudRate:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.modBusConfig.baudRate}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="dataBits:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.modBusConfig.dataBits}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="stopBits:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.modBusConfig.stopBits}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="parity:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.modBusConfig.parity}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="   Read:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.modBusConfig.modBusReadConfigs}" >
+                                                    <ListView.Resources>
+                                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                        </Style>
+                                                    </ListView.Resources>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                <StackPanel Margin="0" Orientation="Vertical">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="name:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=name}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="nickName:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=nickName}" FontSize="16" />
+                                                                        
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="station:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=station}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="address:" FontSize="16" />
+                                                                        <Label Width="80" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=address}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="funcCode:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=funcCode}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="length:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=length}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="k1:" FontSize="16" />
+                                                                        <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=k1}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="k0:" FontSize="16" />
+                                                                        <Label Width="40" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=k0}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Border>
+
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="   Write:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PMC._config.modBusConfig.modBusWriteConfigs}" >
+                                                    <ListView.Resources>
+                                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                                        </Style>
+                                                    </ListView.Resources>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Margin="0,2,0,2"  Background="LightGray" Opacity="0.8" CornerRadius="5">
+                                                                <StackPanel Margin="0" Orientation="Vertical">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="name:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=name}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="nickName:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=nickName}" FontSize="16" />
+
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="station:" FontSize="16" />
+                                                                        <Label Width="30" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=station}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="address:" FontSize="16" />
+                                                                        <Label Width="80" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=address}" FontSize="16" />
+                                                                        <Label Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="funcCode:" FontSize="16" />
+                                                                        <Label Width="150" Margin="10,0,0,0" Padding="0" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0" Content="{Binding Path=funcCode}" FontSize="16" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Border>
+
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                            <StackPanel Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="读卡器:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="15" HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                                <Label Content="com:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.cardReaderConfig.com}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                                <Label Content="bandRate:" Background="Transparent" Margin="0" Padding="1" BorderThickness="0" FontSize="12" HorizontalAlignment="Left"/>
+                                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PMC._config.cardReaderConfig.bandRate}"  FontSize="12" BorderThickness="0" Padding="3,1,3,1" Margin="1" Height="28" Background="DarkGray" Opacity="0.8"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </ScrollViewer>
+
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="18"
+                            Header="光机配置">
+                            <Grid Margin="0,10,0,0" Background="SlateGray">
+                                <Rectangle RadiusX="20" RadiusY="20" Fill="Transparent" Opacity="0.9" />
+                                <ListView  Background="Transparent"  BorderThickness="0" ItemsSource="{Binding PPC._config.projectorConfigs}" >
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.Resources>
+                                        <Style TargetType="{x:Type GridViewHeaderRowPresenter}">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="VerticalContentAlignment" Value="Top" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="2,0,4,0"  Background="LightGray" Width="290" Opacity="0.8" CornerRadius="15">
+                                                <ScrollViewer Height="340" VerticalAlignment="Top">
+                                                    <ScrollViewer.Resources>
+                                                        <Style TargetType="ScrollBar">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="Orientation" Value="Vertical">
+                                                                    <Setter Property="Width" Value="30"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ScrollViewer.Resources>
+                                                    <StackPanel Margin="0" Orientation="Vertical">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="displayPort:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=displayPort}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="controlPort:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=controlPort}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="fMotorStep:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=fMotorStep}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="rMotorStep:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=rMotorStep}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="projectorPixWidth:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=projectorPixWidth}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="projectorPixHeight:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=projectorPixHeight}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="projectorOffsetX:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=projectorOffsetX}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="projectorOffsetY:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=projectorOffsetY}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="layoutPixPadding:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Border>
+                                                                <ListBox ItemsSource="{Binding layoutPixPadding}" Padding="0" Margin="0" Background="Transparent">
+                                                                    <ListBox.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ListBox.ItemsPanel>
+                                                                    <ListBox.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Border Width="30" Padding="2" Margin="-8,0,-8,0">
+                                                                                <Label Margin="0" Padding="5,2,5,2" Content="{Binding ., UpdateSourceTrigger=PropertyChanged}"/>
+                                                                            </Border>
+                                                                        </DataTemplate>
+                                                                    </ListBox.ItemTemplate>
+                                                                </ListBox>
+                                                            </Border>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="imageTransScaleX:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=imageTransScaleX}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="imageTransScaleY:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=imageTransScaleY}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="imageTransRotate:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=imageTransRotate}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="projectorPixScaleX:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=projectorPixScaleX}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="projectorPixScaleY:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=projectorPixScaleY}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="holeOffsetX:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=holeOffsetX}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="holeOffsetY:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=holeOffsetY}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="holeRz:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=holeRz}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="holeRadius:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=holeRadius}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="exposeDAC:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=exposeDAC}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="exposeLight:" FontSize="15" BorderThickness="0" Background ="Transparent"/>
+                                                            <Label Content="{Binding Path=exposeLight}" FontSize="15" Background ="LightGray"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </ScrollViewer>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+                                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        <TabItem
+                            Background="Transparent"
+                            FontSize="18"
+                            Header="UserDB">
+                            <Grid Margin="0,10,0,0" Background="SlateGray">
+                                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                                    <Button Content="ImportUserInfo"
+                                            Command="{Binding UserDBCommand}" CommandParameter="ImportUserInfo"></Button>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Button
+            Width="20"
+            Height="20"
+            Margin="20"
+            Padding="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            hc:BorderElement.CornerRadius="5"
+            hc:IconElement.Geometry="{StaticResource i_Close}"
+            Background="Transparent"
+            BorderThickness="0"
+            Command="{Binding CloseCommand}" />
+    </Grid>
+
+</UserControl>

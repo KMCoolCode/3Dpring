@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+    <Title>gsGCode</Title>
+    <Authors>Ryan Schmidt</Authors>
+    <Company>gradientspace</Company>
+    <Description>C# gcode parsing and manipulation library</Description>
+    <Copyright>Copyright © Ryan Schmidt 2016</Copyright>
+    <PackageLicenseUrl>https://github.com/gradientspace/gsGCode/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/gradientspace/gsGCode</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gradientspace/gsGCode</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>gsGCode</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\geometry3Sharp\geometry3Sharp.csproj" />
+  </ItemGroup>
+
+</Project>
